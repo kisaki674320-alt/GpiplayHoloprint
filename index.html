@@ -1,18 +1,22 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Holoprint Hub</title><style>
+<title>Gpiplay Holoprint</title>
+
+<style>
 :root{
 --bg:#ffffff;
 --card:#f5f5f5;
 --text:#111;
+--accent:#22c55e;
 }
 
 body.dark{
---bg:#0b0b0b;
---card:#111;
---text:#fff;
+--bg:#000000;
+--card:#0a0a0a;
+--text:#ffffff;
 }
 
 body{
@@ -23,89 +27,101 @@ color:var(--text);
 transition:.25s;
 }
 
-nav{
+/* HEADER */
+
+header{
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 padding:12px 20px;
 background:var(--card);
-border-bottom:1px solid rgba(0,0,0,.1);
+}
+
+.left{
+display:flex;
+gap:15px;
+align-items:center;
+}
+
+.right{
+display:flex;
+gap:10px;
+align-items:center;
 }
 
 .logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-weight:bold;
-font-size:20px;
+height:35px;
+}
+
+.skin{
+height:35px;
+}
+
+.plus{
+background:#3b82f6;
+color:white;
+border:none;
+padding:6px 10px;
+border-radius:6px;
 cursor:pointer;
 }
 
-.logo img{
-width:40px;
-height:40px;
+/* NAV */
+
+.nav{
+display:flex;
+gap:15px;
+padding:10px 20px;
 }
 
-.menu button{
+.nav button{
 background:none;
 border:none;
-color:var(--text);
-margin-left:15px;
-font-size:15px;
 cursor:pointer;
+color:var(--text);
 }
 
-.page{
-display:none;
-padding:20px;
-}
-
-.active{
-display:block;
-}
-
-.hero{
-display:flex;
-align-items:center;
-gap:20px;
-background:var(--card);
-padding:20px;
-border-radius:14px;
-}
-
-.hero img{
-width:120px;
-}
+/* SEARCH */
 
 .search{
-margin:20px 0;
+padding:0 20px;
 display:flex;
 gap:10px;
 }
 
-.search input{
-flex:1;
+.search input,select{
 padding:10px;
 border-radius:8px;
 border:1px solid #ccc;
 }
 
+/* GRID */
+
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
 gap:18px;
+padding:20px;
 }
+
+/* CARD */
 
 .card{
 background:var(--card);
 border-radius:12px;
 overflow:hidden;
-border:1px solid rgba(0,0,0,.08);
+transition:.25s;
+animation:fade .3s ease;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 20px rgba(0,0,0,.2);
 }
 
 .card img{
 width:100%;
-height:160px;
+height:150px;
 object-fit:cover;
 }
 
@@ -113,9 +129,23 @@ object-fit:cover;
 padding:10px;
 }
 
+.badge{
+padding:3px 7px;
+border-radius:6px;
+font-size:12px;
+}
+
+.free{background:#22c55e;color:white;}
+.premium{background:#ef4444;color:white;}
+
+.lock{
+opacity:.5;
+pointer-events:none;
+}
+
 .btn{
 display:block;
-background:#22c55e;
+background:var(--accent);
 padding:8px;
 border-radius:8px;
 text-align:center;
@@ -124,151 +154,282 @@ color:white;
 margin-top:6px;
 }
 
-.admin input{
+/* MEMBERSHIP */
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:rgba(0,0,0,.8);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.popup-box{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+width:300px;
+}
+
+/* ADMIN */
+
+.admin{
+padding:20px;
+}
+
+.admin input,
+.admin select{
 display:block;
+width:100%;
 margin-bottom:10px;
 padding:10px;
 border-radius:8px;
 border:1px solid #ccc;
-width:100%;
 }
 
-.admin button{
-padding:10px;
-border:none;
-border-radius:8px;
-background:#3b82f6;
-color:white;
-cursor:pointer;
-}
-
-.about-box{
-background:var(--card);
+footer{
+text-align:center;
 padding:20px;
-border-radius:12px;
+background:var(--card);
 }
 
-.toggle{
-background:#111;
-color:white;
-padding:6px 10px;
-border-radius:8px;
-font-size:12px;
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1}
 }
+</style>
+</head>
 
-body.dark .toggle{
-background:white;
-color:black;
-}
-</style></head><body><nav>
-<div class="logo" onclick="toggleDark()">
-<img src="logo.png">
-Holoprint Hub
-<span class="toggle">Night</span>
-</div><div class="menu">
+<body>
+
+<header>
+
+<div class="left">
+<a href="https://t.me/gpiplayholoprint">@gpiplayholoprint</a>
+</div>
+
+<div class="right">
+<img src="skin.png" class="skin">
+<img src="logo.png" class="logo">
+
+<button class="plus" onclick="window.open('https://t.me/ivan_not_here')">+</button>
+
+<button onclick="toggleDark()">🌙</button>
+
+<select onchange="setLang(this.value)">
+<option value="en">EN</option>
+<option value="mm">MM</option>
+<option value="ar">AR</option>
+<option value="ru">RU</option>
+</select>
+
+</div>
+
+</header>
+
+<div class="nav">
 <button onclick="show('home')">Home</button>
-<button onclick="show('about')">About</button>
+<button onclick="show('premium')">Premium</button>
 <button onclick="show('admin')">Admin</button>
 </div>
-</nav><!-- HOME --><div id="home" class="page active"><div class="hero">
-<img src="skin.png">
-<div>
-<h2>Holoprint Library</h2>
-<p>Download Minecraft Holoprint builds instantly</p>
+
+<div class="search">
+<input placeholder="Search..." id="search" oninput="render()">
+
+<select id="categoryFilter" onchange="render()">
+<option value="">All</option>
+<option>House</option>
+<option>Castle</option>
+<option>City</option>
+<option>Redstone</option>
+<option>Pixel Art</option>
+</select>
 </div>
-</div><div class="search">
-<input placeholder="Search holoprint..." id="search" oninput="render()">
-</div><div class="grid" id="grid"></div>
-</div><!-- ABOUT --><div id="about" class="page">
-<div class="about-box">
-<h2>About</h2>
-<p>This website provides Minecraft Holoprint builds. You can download .mcpack files instantly.</p>
+
+<div id="content"></div>
+
+<!-- MEMBERSHIP POPUP -->
+
+<div class="popup" id="pay">
+
+<div class="popup-box">
+
+<h3>Diamond Rank</h3>
+Unlock all premium builds
+
+<br><br>
+
+TON:
+<br>
+<code>UQD46rhikL1fakiDB30pqoaa4zn8tW8VVtlJD7_mla_dfx53</code>
+
+<br><br>
+
+WavePay / KPay:
+<br>
+09423687891
+
+<br><br>
+
+<button class="btn" onclick="paid()">I Paid</button>
+
 </div>
-</div><!-- ADMIN --><div id="admin" class="page">
-<div class="admin">
-<h2>Admin Upload</h2>
-<input id="title" placeholder="Build name">
-<input id="desc" placeholder="Description">
-<input type="file" id="image">
-<input type="file" id="file">
-<button onclick="upload()">Post Holoprint</button>
+
 </div>
-</div><script>
-let builds = JSON.parse(localStorage.getItem("holoprints") || "[]");
+
+<footer>
+Gpiplay Holoprint — Minecraft Holoprint Library
+</footer>
+
+<script>
+
+let member=localStorage.getItem("member")==="true"
+
+let builds=JSON.parse(localStorage.getItem("builds")||"[]")
 
 function toggleDark(){
-document.body.classList.toggle("dark");
-localStorage.setItem("dark",document.body.classList.contains("dark"));
+document.body.classList.toggle("dark")
 }
 
-if(localStorage.getItem("dark")==="true"){
-document.body.classList.add("dark");
+function setLang(){}
+
+function paid(){
+member=true
+localStorage.setItem("member",true)
+document.getElementById("pay").style.display="none"
+render()
 }
 
-function show(page){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.getElementById(page).classList.add("active");
-}
+let page="home"
 
-function save(){
-localStorage.setItem("holoprints", JSON.stringify(builds));
+function show(p){
+page=p
+render()
 }
 
 function render(){
-const grid = document.getElementById("grid");
-const q = document.getElementById("search").value.toLowerCase();
 
-grid.innerHTML="";
+if(page==="admin"){
+content.innerHTML=`
+<div class="admin">
+<h3>Upload</h3>
+
+<input id="title" placeholder="Title">
+<input id="desc" placeholder="Description">
+
+<select id="type">
+<option value="free">Free</option>
+<option value="premium">Premium</option>
+</select>
+
+<select id="cat">
+<option>House</option>
+<option>Castle</option>
+<option>City</option>
+<option>Redstone</option>
+<option>Pixel Art</option>
+</select>
+
+<input type="file" id="img">
+<input type="file" id="file">
+
+<button class="btn" onclick="upload()">Post</button>
+</div>
+`
+return
+}
+
+let html=`<div class="grid">`
+
+let q=search.value.toLowerCase()
+let cat=categoryFilter.value
 
 builds
 .filter(b=>b.title.toLowerCase().includes(q))
-.forEach(b=>{
+.filter(b=>!cat || b.category===cat)
+.filter(b=>page==="premium"?b.type==="premium":true)
+.forEach((b,i)=>{
 
-grid.innerHTML += `
-<div class="card">
-<img src="${b.image}">
+let locked=b.type==="premium"&&!member
+
+html+=`
+<div class="card ${locked?"lock":""}">
+<img src="${b.img}">
 <div class="card-body">
-<b>${b.title}</b>
-<div style="opacity:.7;font-size:13px">${b.desc}</div>
-<a class="btn" href="${b.file}" download="holoprint.mcpack">Download</a>
+
+<span class="badge ${b.type}">
+${b.type}
+</span>
+
+<h4>${b.title}</h4>
+<p>${b.desc}</p>
+
+<small>${b.downloads||0} downloads</small>
+
+${locked
+? `<button class="btn" onclick="pay.style.display='flex'">Unlock</button>`
+: `<a class="btn" onclick="download(${i})">Download</a>`
+}
+
 </div>
 </div>
-`;
-});
+`
+
+})
+
+html+=`</div>`
+
+content.innerHTML=html
+}
+
+function download(i){
+builds[i].downloads=(builds[i].downloads||0)+1
+localStorage.setItem("builds",JSON.stringify(builds))
+window.open(builds[i].file)
+render()
 }
 
 function upload(){
-const title = document.getElementById("title").value;
-const desc = document.getElementById("desc").value;
-const image = document.getElementById("image").files[0];
-const file = document.getElementById("file").files[0];
 
-if(!title||!image||!file) return alert("fill all");
+let t=title.value
+let d=desc.value
+let type=document.getElementById("type").value
+let cat=document.getElementById("cat").value
 
-const r1 = new FileReader();
-const r2 = new FileReader();
+let r1=new FileReader()
+let r2=new FileReader()
 
 r1.onload=e=>{
 r2.onload=f=>{
 
 builds.unshift({
-title,
-desc,
-image:e.target.result,
-file:f.target.result
-});
+title:t,
+desc:d,
+type,
+category:cat,
+img:e.target.result,
+file:f.target.result,
+downloads:0
+})
 
-save();
-render();
-show('home');
+localStorage.setItem("builds",JSON.stringify(builds))
+show("home")
+
 }
 
-r2.readAsDataURL(file);
+r2.readAsDataURL(file.files[0])
 }
 
-r1.readAsDataURL(image);
+r1.readAsDataURL(img.files[0])
 }
 
-render();
-</script></body>
-  </html>
+render()
+
+</script>
+
+</body>
+</html>
